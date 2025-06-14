@@ -21,6 +21,7 @@ from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("index/", views.index),
     path("Saludar/", views.saludar),
     path("saludar2/", views.saludar_con_etiqueta),
     path('saludar3/<str:nombre>/<str:apellido>', views.saludar_con_parametros),
