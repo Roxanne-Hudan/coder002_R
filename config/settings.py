@@ -11,6 +11,20 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+#NEW NEW
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'AppCoder' / 'static',
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+#NEW NEW
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
+    'core', # anterior profesor, trabajo algo sucio pero efectivo
+    'AppCoder', # nueva aplicacion 
 ]
 
 MIDDLEWARE = [
@@ -55,7 +70,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/ "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
