@@ -19,24 +19,22 @@
     <body>
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
-  <div class="container">
-    <a class="navbar-brand" href="{% url 'inicio' %}">App Coder</a>
-    <div>
-      <a class="btn btn-outline-primary mx-1" href="{% url 'inicio' %}">Inicio</a>
-      <a class="btn btn-outline-primary mx-1" href="{% url 'profesores' %}">Profesores</a>
-      <a class="btn btn-outline-primary mx-1" href="{% url 'cursos' %}">Cursos</a>
-      <a class="btn btn-outline-primary mx-1" href="{% url 'estudiantes' %}">Estudiantes</a>
-      <a class="btn btn-outline-primary mx-1" href="{% url 'entregables' %}">Entregables</a>
-    </div>
-
-    <!-- Formulario para filtrar por camada -->
-    <form class="d-flex ms-3" action="{% url 'busquedaCamada' %}" method="GET" style="max-width: 250px;">
-      <input class="form-control me-2" type="number" name="camada" placeholder="Filtrar por Camada" aria-label="Buscar Camada" required>
-      <button class="btn btn-outline-success" type="submit">Buscar</button>
-    </form>
-
-  </div>
-</nav>
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'inicio' %}">Start Bootstrap</a>
+                <div>
+                    <a class="btn btn-outline-primary mx-1" href="{% url 'inicio' %}">Inicio</a>
+                    <a class="btn btn-outline-primary mx-1" href="{% url 'profesores' %}">Profesores</a>
+                    <a class="btn btn-outline-primary mx-1" href="{% url 'cursos' %}">Cursos</a>
+                    <a class="btn btn-outline-primary mx-1" href="{% url 'estudiantes' %}">Estudiantes</a>
+                    <a class="btn btn-outline-primary mx-1" href="{% url 'entregables' %}">Entregables</a>
+                </div>
+                <!-- Formulario para filtrar por camada -->
+    <form action="{% url 'buscar' %}" method="GET">
+    <input type="number" name="camada" id="camada" placeholder="Número de camada" required>
+    <button type="submit">Buscar</button>
+</form>
+            </div>
+        </nav>
         <!-- Masthead-->
         <header class="masthead">
             <div class="container position-relative">

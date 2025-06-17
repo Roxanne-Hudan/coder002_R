@@ -31,21 +31,17 @@ def cursos(request):
         "cursos": cursos
     })
 
-def busqueda_camada(request):
-    # Obtener el parámetro 
-    camada = request.GET.get('camada')
-
-    cursos_filtrados = []
-
+def buscar(request):
+    camada = request.GET.get('camada', None)
+    cursos = []
     if camada:
-        # Filtrar los cursos 
-        cursos_filtrados = Curso.objects.filter(camada=camada)
+        cursos = Curso.objects.filter(camada=camada)
+    return render(request, 'AppCoder/resultados_busqueda.html', {'cursos': cursos, 'camada': camada})
 
-    contexto = {
-        'cursos': cursos_filtrados,
-        'camada': camada,
-    }
-    return render(request, 'AppCoder/cursos.html', contexto)
+def busqueda_camada(request):
+    camada = request.GET.get("camada", "")
+    cursos = Curso.objects.filter(camada=camada) if camada else []
+    return render(request, "AppCoder/resultados_busqueda.html", {"cursos": cursos, "camada": camada})
 
 def profesores(request):
     if request.method == "POST":
@@ -141,18 +137,18 @@ def profesorFormulario(request):
 def busquedaCamada(request):
     return render(request, "AppCoder/formulario/busquedaCamada.html")
 
-def buscar(request):
-    if request.GET["camada"]:
-        #respuesta = f"Estoy buscando la camada nro: {request.GET['camada'] }"
-        camada = request.GET['camada']
-        # icontains es un filtro que se usa para buscar coincidencias en los campos de texto de la base de datos, 
-        # sin importar si las letras están en mayúsculas o minúsculas
-        cursos = Curso.objects.filter(camada__icontains=camada)
-
-        return render(request, "AppCoder/formulario/resultadosBusqueda.html", {"cursos": cursos, "camada": camada})
-
-    else:
-        respuesta = "No enviaste datos"
-
-        # No olvidar from django.http import HttpResponse
-        return HttpResponse(respuesta)
+# def buscar(request):
+#     if request.GET["camada"]:
+#         #respuesta = f"Estoy buscando la camada nro: {request.GET['camada'] }"
+#         camada = request.GET['camada']
+#         # icontains es un filtro que se usa para buscar coincidencias en los campos de texto de la base de datos, 
+#         # sin importar si las letras están en mayúsculas o minúsculas
+#         cursos = Curso.objects.filter(camada__icontains=camada)
+# 
+#         return render(request, "AppCoder/formulario/resultadosBusqueda.html", {"cursos": cursos, "camada": camada})
+# 
+#     else:
+#         respuesta = "No enviaste datos"
+# 
+#         # No olvidar from django.http import HttpResponse
+#         return HttpResponse(respuesta)
