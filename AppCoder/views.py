@@ -31,6 +31,22 @@ def cursos(request):
         "cursos": cursos
     })
 
+def busqueda_camada(request):
+    # Obtener el parámetro 
+    camada = request.GET.get('camada')
+
+    cursos_filtrados = []
+
+    if camada:
+        # Filtrar los cursos 
+        cursos_filtrados = Curso.objects.filter(camada=camada)
+
+    contexto = {
+        'cursos': cursos_filtrados,
+        'camada': camada,
+    }
+    return render(request, 'AppCoder/cursos.html', contexto)
+
 def profesores(request):
     if request.method == "POST":
         informacion = request.POST
