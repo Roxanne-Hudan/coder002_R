@@ -1,3 +1,3 @@
-# Python y Django
+# Entregable 3 Roxanne Colosia Servin
 
 ## Curso 
