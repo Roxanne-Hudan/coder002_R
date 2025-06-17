@@ -42,4 +42,6 @@ def saludar_con_parametros(request, nombre: str, apellido: str):
     apellido = apellido.upper()
     return HttpResponse(f"{apellido}, {nombre}")
 
-
+def blog(request):
+    posts = Post.objects.all()  # obtenemos todos los posts
+    return render(request, 'core/base.html', {'posts': posts})

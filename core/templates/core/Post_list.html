@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Publicaciones</title>
+
+</head>
+
+{% extend "core/base.html" %}
+
+{% block title %}
+    Publicaciones
+{% endblock title %}
+{% block content %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for post in posts %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.titulo }}</h5>
+                    <p class="card-text">{{ post.contenido|truncatechars:150 }}</p>
+                </div>
+                    <div class="card-footer text-muted">
+                          Publicado el {{ post.fecha_publicacion|date:"d/m/Y H:i" }}
+                    </div>
+            </div>
+        </div>
+            {% empty %}
+            <div class="col">
+                <p class="text-center">No hay publicaciones disponibles.</p>
+            </div>
+              {% endfor %}
+    </div>
+{% endblock content %}
+
