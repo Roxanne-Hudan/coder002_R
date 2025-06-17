@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Estudiante, Profesor, Curso, Entregable
-from .forms import CursoFormulario, ProfesorFormulario
+from .forms import CursoFormulario, ProfesorFormulario, EstudianteForm, EntregableForm, CursoForm
 from django.http import HttpResponse
 
 # Create your views here.
@@ -17,16 +17,63 @@ def inicio(request):
     return render(request, "AppCoder/index.html")
 
 def cursos(request):
-    return render(request, "AppCoder/cursos.html")
+    if request.method == "POST":
+        form = CursoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cursos')
+    else:
+        form = CursoForm()
+
+    cursos = Curso.objects.all()
+    return render(request, "AppCoder/cursos.html", {
+        "form": form,
+        "cursos": cursos
+    })
 
 def profesores(request):
+    if request.method == "POST":
+        informacion = request.POST
+        profesor = Profesor(
+            nombre=informacion['nombre'],
+            apellido=informacion['apellido'],
+            email=informacion['email'],
+            profesion=informacion['profesion']
+        )
+        profesor.save()
+        return render(request, "AppCoder/profesores.html", {"mensaje": "Profesor agregado con éxito"})
+
     return render(request, "AppCoder/profesores.html")
 
 def estudiantes(request):
-    return render(request, "AppCoder/estudiantes.html")
+    if request.method == "POST":
+        form = EstudianteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('estudiantes')  # Redirige para evitar reenvío del formulario
+    else:
+        form = EstudianteForm()
+
+    estudiantes = Estudiante.objects.all()
+    return render(request, "AppCoder/estudiantes.html", {
+        "form": form,
+        "estudiantes": estudiantes
+    })
 
 def entregables(request):
-    return render(request, "AppCoder/entregables.html")
+    if request.method == "POST":
+        form = EntregableForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('entregables')
+    else:
+        form = EntregableForm()
+
+    entregables = Entregable.objects.all()
+    return render(request, "AppCoder/entregables.html", {
+        "form": form,
+        "entregables": entregables
+    })
 
 def App(request):
     return render(request, "AppCoder/App.html")
