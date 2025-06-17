@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Estudiante, Profesor, Curso, Entregable
 from .forms import CursoFormulario, ProfesorFormulario
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -73,3 +74,22 @@ def profesorFormulario(request):
         miFormulario = ProfesorFormulario()  # Formulario vacío para construir el html
 
     return render(request, "AppCoder/formulario/profesorFormulario.html", {"miFormulario": miFormulario})
+
+def busquedaCamada(request):
+    return render(request, "AppCoder/formulario/busquedaCamada.html")
+
+def buscar(request):
+    if request.GET["camada"]:
+        #respuesta = f"Estoy buscando la camada nro: {request.GET['camada'] }"
+        camada = request.GET['camada']
+        # icontains es un filtro que se usa para buscar coincidencias en los campos de texto de la base de datos, 
+        # sin importar si las letras están en mayúsculas o minúsculas
+        cursos = Curso.objects.filter(camada__icontains=camada)
+
+        return render(request, "AppCoder/formulario/resultadosBusqueda.html", {"cursos": cursos, "camada": camada})
+
+    else:
+        respuesta = "No enviaste datos"
+
+        # No olvidar from django.http import HttpResponse
+        return HttpResponse(respuesta)
