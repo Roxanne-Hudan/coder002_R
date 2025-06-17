@@ -26,3 +26,16 @@ def estudiantes(request):
 def entregables(request):
     return render(request, "AppCoder/entregables.html")
 
+def App(request):
+    return render(request, "AppCoder/App.html")
+
+# def cursoFormulario(request):
+#     return render(request, "AppCoder/formulario/cursoFormulario.html")
+
+def cursoFormulario(request):
+    if request.method == "POST":
+        curso = Curso(nombre=request.POST["curso"],camada=(request.POST["camada"]))
+        curso.save()
+        return render(request, "AppCoder/index.html")
+    return render(request, "AppCoder/formulario/cursoFormulario.html")
+
